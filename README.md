@@ -15,7 +15,7 @@ This API allows searches for a specific player through different methods. The fi
 
 ![nba api homepage 2](https://user-images.githubusercontent.com/13879568/212551936-b9493910-324c-45c6-9a44-34fc9c0d0bce.PNG)
 
-When the user searches for a specific player, the Web-Applications makes HTTP requests to the API server and displays the top five performances of the searched player in each stat category.
+When the user searches for a specific player, the Web-Application makes HTTP requests to the API server and displays the top five performances of the searched player in each stat category.
 
 ![nba api srch 3](https://user-images.githubusercontent.com/13879568/212552254-06f56a8c-09bc-42c6-8fe3-bc7770dc242d.PNG)
 
