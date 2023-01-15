@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# NBA Stats API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple React Web-application for consuming an API that calculates NBA player stats. The application allows the user to search for a specific player and then calculates the top five performances of that player in each stat category that season. This application utilizes API-NBA which is hosted through RapidAPI here: https://rapidapi.com/api-sports/api/api-nba/
 
-## Available Scripts
+## Homepage
 
-In the project directory, you can run:
+Upon opening this web-application, the user will see this homepage:
 
-### `npm start`
+![nba api homepage 1](https://user-images.githubusercontent.com/13879568/212551884-69c95630-f278-43a9-a2ee-0acfb997ef6c.PNG)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Searching for a player with Lastname, Season, and Team ID
 
-### `npm test`
+This API allows searches for a specific player through different methods. The first method is using the player's lastname, season, and their team id number. API-NBA uses a specific legend for the team id numbers so this is given to the user in the bottom of the webpage.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![nba api homepage 2](https://user-images.githubusercontent.com/13879568/212551936-b9493910-324c-45c6-9a44-34fc9c0d0bce.PNG)
 
-### `npm run build`
+When the user searches for a specific player, the Web-Applications makes HTTP requests to the API server and displays the top five performances of the searched player in each stat category.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![nba api srch 3](https://user-images.githubusercontent.com/13879568/212552254-06f56a8c-09bc-42c6-8fe3-bc7770dc242d.PNG)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Multiple Search Results
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+When multiple players with the same name are present on the team, this Web-App uses conditional rendering to render the multiple search results instead of an individual player's stats. The app also shows the ID numbers of each specific player so that the user can do an ID search for their selected player.
 
-### `npm run eject`
+![nba api srch 4](https://user-images.githubusercontent.com/13879568/212552609-100e1540-a80a-4fda-b17d-5658087d1446.PNG)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Searching for a player with ID Number and Season
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Once a player's ID number has been retreived, the user can directly search for their desired player using the "ID Search" button.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![nba api srch 5](https://user-images.githubusercontent.com/13879568/212552743-ecc1b7ff-905c-498a-8d31-69f1d0dc02ec.PNG)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
