@@ -10,7 +10,7 @@ function StatPanel() {
     url: 'https://api-nba-v1.p.rapidapi.com/players/statistics',
     params: {id: '882', season: '2020'},
     headers: {
-      'X-RapidAPI-Key': '16bb686121msh1a94d2c99e2883dp1cc353jsn3d22366f72a5',
+      'X-RapidAPI-Key': '[Insert Your API Key Here]',
       'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
     }
   };
@@ -20,7 +20,7 @@ function StatPanel() {
     url: 'https://api-nba-v1.p.rapidapi.com/games',
     params: {id: '8899'},
     headers: {
-      'X-RapidAPI-Key': '16bb686121msh1a94d2c99e2883dp1cc353jsn3d22366f72a5',
+      'X-RapidAPI-Key': '[Insert Your API Key Here]',
       'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
     }
   };
@@ -37,7 +37,7 @@ function StatPanel() {
     url: 'https://api-nba-v1.p.rapidapi.com/players',
     params: {team: '2', season: '2021', search: 'tatum'},
     headers: {
-      'X-RapidAPI-Key': '16bb686121msh1a94d2c99e2883dp1cc353jsn3d22366f72a5',
+      'X-RapidAPI-Key': '[Insert Your API Key Here]',
       'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
     }
 
@@ -103,6 +103,7 @@ function StatPanel() {
 
       if(typeof setName === "undefined"){
       setIDName(data.response[0].player.firstname + " " + data.response[0].player.lastname)
+
       //Set Results back to zero to clear any previous search renders
       setResults(0)
         }
