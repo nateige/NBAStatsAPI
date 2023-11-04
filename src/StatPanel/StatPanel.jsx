@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import axios, { formToJSON } from 'axios';
 import './statsStyle.css';
 
@@ -10,17 +10,7 @@ function StatPanel() {
     url: 'https://api-nba-v1.p.rapidapi.com/players/statistics',
     params: {id: '882', season: '2020'},
     headers: {
-      'X-RapidAPI-Key': '[Insert Your API Key Here]',
-      'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
-    }
-  };
-
-  const gameOptions = {
-    method: 'GET',
-    url: 'https://api-nba-v1.p.rapidapi.com/games',
-    params: {id: '8899'},
-    headers: {
-      'X-RapidAPI-Key': '[Insert Your API Key Here]',
+      'X-RapidAPI-Key': '85d7bcb5c6msh4db95903f1add54p1831a4jsnf574f1b780c9',
       'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
     }
   };
@@ -37,16 +27,14 @@ function StatPanel() {
     url: 'https://api-nba-v1.p.rapidapi.com/players',
     params: {team: '2', season: '2021', search: 'tatum'},
     headers: {
-      'X-RapidAPI-Key': '[Insert Your API Key Here]',
+      'X-RapidAPI-Key': '85d7bcb5c6msh4db95903f1add54p1831a4jsnf574f1b780c9',
       'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
     }
 
   }
 
 
-
-    const [data, setData] = useState([null]);
-
+    // Use state variables for all stat categories
     const [pointsData, setPoints] = useState({});
     const [pointsPG, setPointsPG] = useState(-1);
 
@@ -71,59 +59,48 @@ function StatPanel() {
     let srchPlayers = []
     const [playerResults, setPlayerResults] = useState([null])
 
-    async function getPlayer(playID, seasonNum, setName){
-
+    async function getPlayer(playID, seasonNum){
 
       playerID = document.getElementById("playerID").value
       playerIDSeason = document.getElementById("playerIDSeason").value
 
-      if(typeof playID === 'undefined'){
-        id_options.params.id = playerID
-      }
+      // If seasonNum is undefined we are doing an ID search. Use the playerIDSeason element instead.
       if(typeof seasonNum === 'undefined'){
         id_options.params.id = playerID
         id_options.params.season = playerIDSeason
       }
+
+      // If seasonNum is not undefined, we are doing a normal search. Use the playerSeason element for searching.
       if ((typeof playID != 'undefined') && (typeof seasonNum != 'undefined')){
-      
       id_options.params.id = playID
       id_options.params.season = seasonNum
       }
 
+      // Request player data from NPA-API endpoint
       try{
       const {data} = await axios.request(id_options);
-
-      console.log("|REAL P DATA|")
-      console.log(data)
-      console.log("|REAL GAME DATA|")
-      console.log(data.response.game)
-
-      console.log("|GET PLAYER ID|")
-      console.log(data.response[0].player.firstname, data.response[0].player.lastname)
-
-      if(typeof setName === "undefined"){
-      setIDName(data.response[0].player.firstname + " " + data.response[0].player.lastname)
-
-      //Set Results back to zero to clear any previous search renders
-      setResults(0)
-        }
 
       getStats(data.response)
       return data;
       }
-      catch(error){}
+      catch(error){
+
+      }
     }
 
     function getTopFiveByValue(dict){
 
+      // Create items array
       var items = Object.keys(dict).map(function(key){
         return [key, dict[key]];
       });
 
+      // Sort the array based on the second element
       items.sort(function(first, second){
         return second[1] - first[1];
       });
 
+      // Create a new array with only the first 5 items
       return (items.slice(0,5))
 
     }
@@ -142,6 +119,8 @@ function StatPanel() {
     let blockList = {}
     let foulList = {}
 
+    // Calculates season averages for a player
+    // @param jsonData The jsonData Received from the NBA-API endpoint
     function getStats(jsonData){
 
       pointList = {}
@@ -195,54 +174,54 @@ function StatPanel() {
       
     }
 
-    //Rename this function, this is our search button logic
-    async function searchPlayer(){
+    // Searches for a player based on the given data from the given document elements
+    async function searchForPlayer(){
       srchLastname = document.getElementById("playerLastname").value
       srchID = document.getElementById("playerTeamID").value
       srchSeason = document.getElementById("playerSeason").value
-
-      console.log("|Lastname|", srchLastname, "|ID|" ,  srchID, "|Season|", srchSeason )
 
       srchOptions.params.search = srchLastname
       srchOptions.params.team = srchID
       srchOptions.params.season = srchSeason
 
-      console.log(srchOptions.params)
-
       try {
         const {data} = await axios.request(srchOptions);
 
-        console.log(data)
-        console.log(data.response.length)
-
+        // We found more than one player with that lastname, make a list of search results
         if(data.response.length > 1){
           setIDName("")
           setResults(data.response.length)
 
           let resultsStr = ""
-          for (let i = 0; i < data.response.length ; i++){
-
+          for (let i = 0; i < data.response.length ; i++)
+          {
             resultsStr = data.response[i].firstname + " " + data.response[i].lastname + " with player ID Number: " + data.response[i].id
             srchPlayers.push(resultsStr)
-            
           }
           setPlayerResults(srchPlayers)
 
         }
+
+        // We retrieved just one player's data
         else if(data.response.length === 1){
           setIDName("")
           setResults(data.response.length)
           let resultStr = data.response[0].firstname + " " + data.response[0].lastname + " with player ID Number: " + data.response[0].id
           srchPlayers.push(resultStr)
           setPlayerResults(srchPlayers)
-          getPlayer(data.response[0].id, srchSeason, false)
+          getPlayer(data.response[0].id, srchSeason)
           
+        }
+
+        // No results found
+        else if(data.respons.length === 0){
+          setResults(0)
         }
 
         return data;
       }
       catch(error){
-        console.log("|ERROR|")
+
       }
 
     }
@@ -254,12 +233,13 @@ function StatPanel() {
            Search Player: Lastname  &ensp;<input type="text" id="playerLastname"/> &ensp;
            Team ID: &ensp;<input type="text" id="playerTeamID"/> &ensp;
            Season (YYYY): &ensp;<input type="text" id="playerSeason"/>
-           &ensp;<button onClick={searchPlayer}> Search</button>
+           &ensp;<button onClick={searchForPlayer}> Search</button>
            <br></br>
            ID Search: &ensp; <input type="text" id="playerID"/>
            &ensp; ID Season (YYYY): &ensp;<input type="text" id="playerIDSeason"/>
            &ensp;<button onClick={getPlayer}> ID Search</button>
 
+            {/* Multiple search results found, render descriptive text for each search result */}
             {numSrchResults > 1 &&
 
              <div>
@@ -275,6 +255,7 @@ function StatPanel() {
 
             }
 
+            {/* One search result found */}
             <div>
             { (numSrchResults === 1) &&
 
@@ -285,6 +266,7 @@ function StatPanel() {
             }
             </div>
 
+            {/* We use a different useState variable for ID searches */}
             <div>
             { (idSrchName != "")  &&
 
